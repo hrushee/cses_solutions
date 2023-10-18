@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+typedef long long LL;
+#define ll long long int
+#define fast_io ios_base::sync_with_stdio(false),cin.tie(NULL),cout.tie(NULL)
+using namespace std;
+vector<int>dir={1,0,-1,0,1};
+void help(vector<vector<char>>&nums,int n,int m,int x,int y){
+    nums[x][y]='#';
+    for(int i=0;i<4;i++){
+        int xx=x+dir[i];
+        int yy=y+dir[i+1];
+        if(min(xx,yy)>=0&&xx<n&&yy<m&&nums[xx][yy]=='.'){
+           help(nums,n,m,xx,yy); 
+        }
+    }
+}
+int main(){
+#ifndef ONLINE_JUDGE
+freopen("input.txt","r",stdin);
+freopen("output.txt","w",stdout);
+#endif
+ll n,m;
+cin>>n>>m;
+vector<vector<char>>nums(n,vector<char>(m,'.'));
+for(int i=0;i<n;i++){
+    for(int j=0;j<m;j++){
+        cin>>nums[i][j];
+    }
+}
+ll ans=0;
+for(int i=0;i<n;i++){
+    for(int j=0;j<m;j++){
+        if(nums[i][j]=='.'){
+            help(nums,n,m,i,j);
+            ans++;
+        }
+    }
+}
+cout<<ans<<endl;
+}
